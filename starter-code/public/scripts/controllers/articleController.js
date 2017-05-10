@@ -5,7 +5,7 @@ var app = app || {};
   const articleController = {};
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
-  // (put your response in a comment here)
+  // (put your response in a comment here) articleController calls an index() to get the position of each article in the array. articleView is also being called.
   articleController.index = (ctx) => app.articleView.index(ctx.articles);
 
   // REVIEW: Middleware for grabbing one article by ID:
@@ -16,7 +16,7 @@ var app = app || {};
     };
 
     // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
-    // (put your response in a comment here)
+    // (put your response in a comment here) calling a findWehere method that looks through article ids and article data.
     app.Article.findWhere('article_id', ctx.params.article_id, articleData);
   };
 

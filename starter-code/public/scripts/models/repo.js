@@ -5,7 +5,7 @@ var app = app || {};
   const repos = {};
   repos.all = [];
 
-  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live? get ajax request for our github repos and putting it allinto repos.all array.
   repos.requestRepos = function(callback) {
     $.get('/github/user/repos')
     .then(data => repos.all = data, err => console.error(err))
