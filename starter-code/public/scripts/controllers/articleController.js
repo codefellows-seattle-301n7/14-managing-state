@@ -6,6 +6,7 @@ var app = app || {};
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
   // (put your response in a comment here)
+  // This function calls articleView.index in articleView.js in order to pass it article data from an Ajax request.
   articleController.index = (ctx) => app.articleView.index(ctx.articles);
 
   // REVIEW: Middleware for grabbing one article by ID:
@@ -17,6 +18,7 @@ var app = app || {};
 
     // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
     // (put your response in a comment here)
+    // This is a call to Article.findWhere in article.js to find the article with a cartain id.
     app.Article.findWhere('article_id', ctx.params.article_id, articleData);
   };
 
