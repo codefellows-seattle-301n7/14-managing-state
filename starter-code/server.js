@@ -20,6 +20,7 @@ app.use(express.static('./public'));
 
 // COMMENT: What is this function doing? Why do we need it? Where does it receive a request from?
 // (put your response in a comment here)
+//It is a proxy server that the ajax request is routing through. You can pass in the auth token token from the environment variable in the header, and it sets the base request url so you don't have to type out the full url every time you make an ajax request, only the parameter you need, so that makes it easier.
 function proxyGitHub(request, response) {
   console.log('Routing GitHub request for', request.params[0]);
   (requestProxy({
@@ -31,6 +32,7 @@ function proxyGitHub(request, response) {
 
 // COMMENT: What is this route doing? Where does it receive a request from?
 // (put your response in a comment here)
+//When a particular page is requested, it is returning the appropriate file.
 app.get('/new', (request, response) => response.sendFile('new.html', {root: './public'}));
 app.get('/admin', (request, response) => response.sendFile('admin.html', {root: './public'}));
 app.get('/github/*', proxyGitHub);
@@ -108,6 +110,8 @@ app.post('/articles', function(request, response) {
 
 // COMMENT: What is this route doing? Where does it receive a request from?
 // (put your response in a comment here)
+//This request is being called in the Article.prototype.updateRecord() in article.js.
+//It is updating the record in the authors table that corresponds with the passed in ID
 app.put('/articles/:id', (request, response) => {
   client.query(`
     UPDATE authors

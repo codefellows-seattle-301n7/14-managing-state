@@ -14,12 +14,14 @@ var app = app || {};
   // REVIEW: With ES6 arrow functions, if the function only has one parameter, you don't need parentheses.
   //         This is similar to saying Article.loadAll = function(rows).
     // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+//(Iterating through the data passed in from the fetchAll function and sorting the articles based on the publishedOn property. It is then creating an article object out of each row and loading it into the article.All array. The function lives right below in the same file.)
   Article.loadAll = rows => {
     rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
     Article.all = rows.map(ele => new Article(ele));
   };
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+//(Retrieving all the articles from the database from the articles table. It's called from the adminView.js. If it accepts data then it calls the loadAll function and passes the data in as an argument. The loadAll function lives in the same file.)
   Article.fetchAll = callback => {
     $.get('/articles')
     .then(
@@ -55,6 +57,7 @@ var app = app || {};
   };
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+// (Being called from adminView.js. Getting the results of the allAuthors function which lives in the same file and returns an array of original Authors. It will then return an object of each an object with Author name and numWords property which is the count of all the words in all the articles of that author.)
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
       return {
@@ -75,6 +78,7 @@ var app = app || {};
   };
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+// (Called from within the IFFE which encapsulates each function on this page. It's passing a callback function as a parameter and making an AJAS request to delete all the article table from the database. Following 'DELETE' it calls back the callback function. )
   Article.truncateTable = callback => {
     $.ajax({
       url: '/articles',

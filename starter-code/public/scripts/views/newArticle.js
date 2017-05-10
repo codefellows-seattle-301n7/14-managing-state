@@ -5,6 +5,7 @@ var app = app || {};
   const newArticle = {};
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  //This function is being called at the bottom of this IFFE. It controlls the view for the new.html.  On load of the page, it show the write and articles tbs. On click of the new-form it creates a new article. On submit, it submits the article. 
   newArticle.initNewArticlePage = function() {
     $('.tab-content').show();
     $('#export-field').hide();
