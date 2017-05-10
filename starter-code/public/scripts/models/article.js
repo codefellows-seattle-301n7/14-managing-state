@@ -14,6 +14,7 @@ var app = app || {};
   // REVIEW: With ES6 arrow functions, if the function only has one parameter, you don't need parentheses.
   //         This is similar to saying Article.loadAll = function(rows).
     // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+    // This one sorts rows of articles by date. Then creates new objects on each element from rows. It's called from fetchAll(function within article.js)
   Article.loadAll = rows => {
     rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
     Article.all = rows.map(ele => new Article(ele));
@@ -55,6 +56,8 @@ var app = app || {};
   };
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  //THis one gets called from adminVeiw. It goes through the Array of authors and counts the number of words for each article written by the given author.
+  // It adds them up and passes the number back to adminView where it's called from (app.Article.numWordsByAuthor().forEach).
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
       return {
@@ -75,6 +78,7 @@ var app = app || {};
   };
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // This function deletes records from the table. It's called from   Article.prototype.deleteRecord within article.js
   Article.truncateTable = callback => {
     $.ajax({
       url: '/articles',
