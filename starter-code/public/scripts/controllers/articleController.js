@@ -5,7 +5,7 @@ var app = app || {};
   const articleController = {};
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
-  // (put your response in a comment here)
+  // We are creating a function, with ctx parameter, which calls app.articleView.index that passes ctx.articles. This is then assigned to articleController.index. It is being called by page.js in route.js file.
   articleController.index = (ctx) => app.articleView.index(ctx.articles);
 
   // REVIEW: Middleware for grabbing one article by ID:
@@ -16,7 +16,7 @@ var app = app || {};
     };
 
     // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
-    // (put your response in a comment here)
+    // This function is passing through these parameters (field, value, callback). They live in article.js.
     app.Article.findWhere('article_id', ctx.params.article_id, articleData);
   };
 
