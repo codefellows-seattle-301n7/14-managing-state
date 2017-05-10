@@ -5,6 +5,7 @@ var app = app || {};
   const newArticle = {};
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // It shows tab-content class and hide export-field id and add on focus event that select the artciel.js element when it becomes focus and sets up on change and on submit event listner for new form id. 
   newArticle.initNewArticlePage = function() {
     $('.tab-content').show();
     $('#export-field').hide();
