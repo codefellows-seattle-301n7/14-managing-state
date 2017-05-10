@@ -19,7 +19,7 @@ app.use(express.static('./public'));
 
 
 // COMMENT: What is this function doing? Why do we need it? Where does it receive a request from?
-// (put your response in a comment here)
+// This function uses requestProxy which communicates with the server to authenticate using our GitHub Token which comes from the environment variable. We are using this only for authentication. The request comes from the user's GitHub Token.
 function proxyGitHub(request, response) {
   console.log('Routing GitHub request for', request.params[0]);
   (requestProxy({
@@ -30,7 +30,7 @@ function proxyGitHub(request, response) {
 
 
 // COMMENT: What is this route doing? Where does it receive a request from?
-// (put your response in a comment here)
+// When users go to /new it creates new.html that is in the relative location within public folder. It also takes the user to that new page. Similar behavior for admin.html. When user goes to any page in github directory it calls the proxyGitHub function. The request is from the user.
 app.get('/new', (request, response) => response.sendFile('new.html', {root: './public'}));
 app.get('/admin', (request, response) => response.sendFile('admin.html', {root: './public'}));
 app.get('/github/*', proxyGitHub);
@@ -107,7 +107,7 @@ app.post('/articles', function(request, response) {
 
 
 // COMMENT: What is this route doing? Where does it receive a request from?
-// (put your response in a comment here)
+// On the first put request we are updating (creating new) the author and authorUrl in the authors table on the corresponding author id. Once that is done (.then) we do the next request for articles which is creating an author id, title, category, publishedOn, body with a corresponding article id. The new.html form that was created in earlier function is where the request is coming from.
 app.put('/articles/:id', (request, response) => {
   client.query(`
     UPDATE authors
