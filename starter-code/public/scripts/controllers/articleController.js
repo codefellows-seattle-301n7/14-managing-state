@@ -5,7 +5,10 @@ var app = app || {};
   const articleController = {};
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
-  // (put your response in a comment here)
+  // This function is being assigned another function 'articleView.index', which is defined in articleView.js on line 53.
+  // We're passing in ctx.articles from line 16 below, which is an array of object(s).
+  // 'articleView.index' appends results to the DOM.
+  // This function is called in routes.js on lines 4, 6, 12, and 14.
   articleController.index = (ctx) => app.articleView.index(ctx.articles);
 
   // REVIEW: Middleware for grabbing one article by ID:
@@ -16,7 +19,10 @@ var app = app || {};
     };
 
     // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
-    // (put your response in a comment here)
+    // Article..findwhere is defined in article.js on line 34.
+    // We're calling the function here and passing in three parameters, which are 'field', 'value', and 'callback'.
+    // This function passes these parameters into the route ''/articles/find', which is defined in server.js on line 39.
+    //We're calling the function here because the callback articleData is defined within the parent function (line 12).
     app.Article.findWhere('article_id', ctx.params.article_id, articleData);
   };
 
