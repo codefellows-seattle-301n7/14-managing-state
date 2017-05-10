@@ -23,7 +23,7 @@ var app = app || {};
   };
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
-  // This function does an AJAX request to the '/articles' GET route defined in server.js on line 57 passing in 'callback' as a parameter.
+  // This function does a jQuery AJAX request to the '/articles' GET route defined in server.js on line 57 passing in 'callback' as a parameter.
   // The results are then passed into Article.loadAll function, which is defined above on line 20.
   // This function is called on line 15 of adminView.js where the 'adminView.initAdminPage' function is passed in as the callback.
   Article.fetchAll = callback => {
@@ -61,6 +61,9 @@ var app = app || {};
   };
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // This function creates an object literal containing an authors' names with the corresponding number of words written by a given author.
+  // It relies on Article.allAuthors defined above on line 55.
+  // This funcction is called on line 9 of adminView.js where it is used to display author statistics.
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
       return {
@@ -81,6 +84,9 @@ var app = app || {};
   };
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // This function does an AJAX request to the '/articles' route defined on line 148 in server.js which accepts the DELETE REST method.
+  // This function does not call any other functions.
+  // This function is not called anywhere.  If it's invoked, it clears the 'articles' table in PostgreSQL.
   Article.truncateTable = callback => {
     $.ajax({
       url: '/articles',
