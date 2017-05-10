@@ -14,12 +14,14 @@ var app = app || {};
   // REVIEW: With ES6 arrow functions, if the function only has one parameter, you don't need parentheses.
   //         This is similar to saying Article.loadAll = function(rows).
     // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+    //RESPONSE: We have a anonymous function with a parameter called rows that is assigned to Article.loadAll. Then we'll subtract .a from .b to render a date that is sorted in descending order. Next we'll create a new array of new Article elements using the .map method and assigning that to Article.all. Article.loadAll is called in the the Article.fetchAll function.
   Article.loadAll = rows => {
     rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
     Article.all = rows.map(ele => new Article(ele));
   };
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  //RESPONSE: We are assigning a function with the parameter called callback to Article.fetchAll. Then we're using .get to request all articles. The we use create a function for the response called results. Next we call the Article.loadall where we are passisng the results. Lastly we call the callback.
   Article.fetchAll = callback => {
     $.get('/articles')
     .then(
@@ -55,6 +57,7 @@ var app = app || {};
   };
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  //RESPONSE: We are assigning an anonymous function to numWordsByAuthor to the oject Article. Then we create an array author names property and numWords using .map method on the called Article.allAuthors. With numWords property we have a function with the parameter a where we are using the .match to retreives matches when matching a string against a regular expression. Finally we use the reduce method to get a count of words by authors.
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
       return {
