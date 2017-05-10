@@ -13,4 +13,5 @@ page('/author/:authorName', app.articleController.loadByAuthor, app.articleContr
 page('/category/:categoryName', app.articleController.loadByCategory, app.articleController.index);
 
 // COMMENT: What is this function doing?
+// This makes page.js run so that the above are woroking, usable routes.
 page();
