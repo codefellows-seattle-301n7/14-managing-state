@@ -5,6 +5,7 @@ var app = app || {};
   const articleView = {};
 
   // COMMENT: What is this function doing? Where is it called? Does it call any other functions, and if so, in what file(s) do those function(s) live?
+  // this function gets called in articleView.index function below. The parameter article end up being an object of the articles array as the articleView.index function iterates over the articles array. Lines 12 is assigning an interger to article.daysAgo which represents the number of days since an article was posted. line 13 we are using a ternary statement to check if article.publishedon exists. If is does, we assign a string "published ${article.daysAgo} days ago" where ${article.daysAgo} is equal to the interger previously stated. If article.publishedOn does not exist, article.publishStatus will be assigned the string "(draft)" Line 14: passing article.body into the mark down parser, which allows markdown markup to be displaied as HTML. Line 16: We are returning the function template, which is compiling the template of the script with the id of #article-template, and we are passing article as an arguement.
   const render = function(article) {
     let template = Handlebars.compile($('#article-template').text());
 

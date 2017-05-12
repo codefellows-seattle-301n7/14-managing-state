@@ -8,7 +8,7 @@ const requestProxy = require('express-request-proxy'); // REVIEW: We've added a 
 const PORT = process.env.PORT || 3000;
 const app = express();
 // const conString = 'postgres://USERNAME:PASSWORD@HOST:PORT';
-const conString = ''; // TODO: Don't forget to set your own conString
+const conString = 'postgres://tom:myPassword@localhost:5432/lab14'; // TODO: Don't forget to set your own conString
 const client = new pg.Client(conString);
 client.connect();
 client.on('error', err => console.error(err));
@@ -19,7 +19,7 @@ app.use(express.static('./public'));
 
 
 // COMMENT: What is this function doing? Why do we need it? Where does it receive a request from?
-// (put your response in a comment here)
+// This function allows GET requests to be called against /github on line 36 below using the express-request-proxy middlewhere.  Short answer, we don't, but it simplifies requests to githhub so that the /github route can be used instead without having to specify certain request parameters and the GITHUB_TOKEN.
 function proxyGitHub(request, response) {
   console.log('Routing GitHub request for', request.params[0]);
   (requestProxy({
@@ -30,7 +30,7 @@ function proxyGitHub(request, response) {
 
 
 // COMMENT: What is this route doing? Where does it receive a request from?
-// (put your response in a comment here)
+// This simpifies requests so that GET requests against /new can be used instead of having to specify ./public/new.html, /admin instead of ./public/admin.html, and /github instead of manually including request parameters and GITHUB_TOKENs.  Right now, we're not actually doing GET requests against the /new and /admin routes (although they can be typed manually in the browser), and /github is being used on line 11 of repo.js.
 app.get('/new', (request, response) => response.sendFile('new.html', {root: './public'}));
 app.get('/admin', (request, response) => response.sendFile('admin.html', {root: './public'}));
 app.get('/github/*', proxyGitHub);
@@ -107,7 +107,7 @@ app.post('/articles', function(request, response) {
 
 
 // COMMENT: What is this route doing? Where does it receive a request from?
-// (put your response in a comment here)
+// This route allows a PUT request to be called against /articles/:id to be used carry out a sql query to update the authors table.  This allows another function to simply pass an id after '/article/' in place if :if.  It is used on line 114 of article.js.
 app.put('/articles/:id', (request, response) => {
   client.query(`
     UPDATE authors
@@ -152,6 +152,10 @@ app.delete('/articles', (request, response) => {
 });
 
 loadDB();
+
+app.get('/*', function(req, res) {
+  res.sendFile(__dirname + '/index.html')
+});
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
 
